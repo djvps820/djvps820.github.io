@@ -5,8 +5,6 @@
       xsi:schemaLocation="http://www.sitemaps.org/schemas/sitemap/0.9
             http://www.sitemaps.org/schemas/sitemap/0.9/sitemap.xsd">
 <!-- created with Free Online Sitemap Generator www.xml-sitemaps.com -->
-
-
 <url>
   <loc>https://djvps820.github.io/</loc>
   <lastmod>2025-03-30T13:12:34+00:00</lastmod>
@@ -41,5 +39,10 @@
   <lastmod>2025-06-10T13:12:34+00:00</lastmod>
   <priority>0.90</priority>
 </url>
+ <url>
+  <loc>https://djvps820.github.io/jpcloud.html</loc>
+  <lastmod>2025-10-09T13:12:34+00:00</lastmod>
+  <priority>0.90</priority>
 </url>
 </urlset>
+
