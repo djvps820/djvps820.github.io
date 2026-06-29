@@ -1,0 +1,324 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+<title>如何判断DNS污染还是DNS劫持</title>
+<meta name="description" content="DNS相关问题是最容易被误判的一类故障，尤其是在访问国外网站、企业跨境专线、或者做服务器运维时，经常会听到“是不是DNS被劫持了”“是不是DNS污染了”这样的判断，但真正能说清两者区别的人并不多。">
+<meta name="keywords" content="DNS污染,DNS劫持">
+  <link rel="stylesheet" href="./djvps820_files/bootstrap.min.css">
+  <link rel="stylesheet" href="./djvps820_files/all.min.css">
+  <link rel="stylesheet" href="./djvps820_files/animate.css">
+  <link rel="stylesheet" href="./djvps820_files/nice-select.css">
+  <link rel="stylesheet" href="./djvps820_files/owl.min.css">
+  <link rel="stylesheet" href="./djvps820_files/magnific-popup.css">
+  <link rel="stylesheet" href="./djvps820_files/flaticon.css">
+  <link rel="stylesheet" href="./djvps820_files/main.css">
+  <link rel="stylesheet" href="./djvps820_files/heplnewsstyle.css">
+  <link rel="icon" type="image/x-icon" href="https://djvps820.github.io/favicon.png">
+<meta http-equiv="origin-trial" content="AlK2UR5SkAlj8jjdEc9p3F3xuFYlF6LYjAML3EOqw1g26eCwWPjdmecULvBH5MVPoqKYrOfPhYVL71xAXI1IBQoAAAB8eyJvcmlnaW4iOiJodHRwczovL2RvdWJsZWNsaWNrLm5ldDo0NDMiLCJmZWF0dXJlIjoiV2ViVmlld1hSZXF1ZXN0ZWRXaXRoRGVwcmVjYXRpb24iLCJleHBpcnkiOjE3NTgwNjcxOTksImlzU3ViZG9tYWluIjp0cnVlfQ=="><meta http-equiv="origin-trial" content="Amm8/NmvvQfhwCib6I7ZsmUxiSCfOxWxHayJwyU1r3gRIItzr7bNQid6O8ZYaE1GSQTa69WwhPC9flq/oYkRBwsAAACCeyJvcmlnaW4iOiJodHRwczovL2dvb2dsZXN5bmRpY2F0aW9uLmNvbTo0NDMiLCJmZWF0dXJlIjoiV2ViVmlld1hSZXF1ZXN0ZWRXaXRoRGVwcmVjYXRpb24iLCJleHBpcnkiOjE3NTgwNjcxOTksImlzU3ViZG9tYWluIjp0cnVlfQ=="><meta http-equiv="origin-trial" content="A9wSqI5i0iwGdf6L1CERNdmsTPgVu44ewj8QxTBYgsv1LCPUVF7YmWOvTappqB1139jAymxUW/RO8zmMqo4zlAAAAACNeyJvcmlnaW4iOiJodHRwczovL2RvdWJsZWNsaWNrLm5ldDo0NDMiLCJmZWF0dXJlIjoiRmxlZGdlQmlkZGluZ0FuZEF1Y3Rpb25TZXJ2ZXIiLCJleHBpcnkiOjE3MzY4MTI4MDAsImlzU3ViZG9tYWluIjp0cnVlLCJpc1RoaXJkUGFydHkiOnRydWV9"><meta http-equiv="origin-trial" content="A+d7vJfYtay4OUbdtRPZA3y7bKQLsxaMEPmxgfhBGqKXNrdkCQeJlUwqa6EBbSfjwFtJWTrWIioXeMW+y8bWAgQAAACTeyJvcmlnaW4iOiJodHRwczovL2dvb2dsZXN5bmRpY2F0aW9uLmNvbTo0NDMiLCJmZWF0dXJlIjoiRmxlZGdlQmlkZGluZ0FuZEF1Y3Rpb25TZXJ2ZXIiLCJleHBpcnkiOjE3MzY4MTI4MDAsImlzU3ViZG9tYWluIjp0cnVlLCJpc1RoaXJkUGFydHkiOnRydWV9"></head>
+
+</head>
+<body>
+
+ <!--============= ScrollToTop Section Starts Here =============-->
+
+  <div class="overlay"></div>
+  <!--============= ScrollToTop Section Ends Here =============-->
+  <header class="header-section">
+    <div class="container">
+      <div class="header-wrapper">
+        <div class="logo-area">
+          <div class="logo">
+            <a href="https://djvps820.github.io/" title="香港vps推荐" alt="香港vps推荐">
+              <img src="./djvps820_files/f75336c2714d6ea.png" title="香港vps推荐" alt="香港vps推荐">
+            </a>
+          </div>
+          <div id="div_1">
+              <div class="support"> 
+               <ul class="menu" style="margin-right: -50px;"> 
+                <li class="menu-item-has-children"> 
+                      <a href="https://djvps820.github.io/hongkongcloud.html" title="香港云服务器" style="padding: 7px 5px;font-size: 15px;"><img src="./djvps820_files/hk.svg" style="margin-right: 7px;width: 30px;" alt="香港机房" class="img-fluid">香港机房</a> 
+                      <ul class="submenu" style="min-width: 150px;"> 
+                      <li> <a style="font-size: 13px;">
+                        <img src="./djvps820_files/jp.svg" style="margin-right: 7px;width: 30px;" class="img-fluid">日本机房</a> 
+                      </li> 
+                    <li> 
+                     <a href="http://djvps820.github.io/uscloud.html" title="美国云服务器" style="font-size: 13px;"> 
+                     <img src="./djvps820_files/us.svg" style="margin-right: 7px;width: 30px;" class="img-fluid">美国机房</a> 
+                    </li>
+                     <li> <a style="font-size: 13px;">
+                     <img src="./djvps820_files/img/xinjapo.png" style="margin-right: 7px;width: 30px;" class="img-fluid">新加坡机房</a> 
+                    </li>
+                  </ul> 
+                  </li> 
+                  </ul> 
+            </div>
+          </div>
+        </div>
+        <ul class="menu">
+          <li><a href="https://djvps820.github.io" title="香港vps">首页</a></li>
+          <li class="menu-item-has-children">
+            <a href="https://djvps820.github.io/hkvps.html"  title="香港vps">香港vps</a>
+            <ul class="submenu">
+                <li>
+                <a href="https://djvps820.github.io/hongkongcloud.html" class="nav-link nav-toggle" title="5家香港云服务器">5家香港云服务器</a>
+              </li>
+            </ul>
+          </li>
+          <li class="menu-item-has-children">
+            <a href="https://djvps820.github.io/hkserver.html" class="nav-link nav-toggle" title="香港服务器">香港服务器</a>
+            <ul class="submenu" style="min-width: 568px; margin-left: 400px; left: -568px">
+              <div class="row justify-content-center mb-30-none">
+                <div class="col-lg-6 col-md-6">
+                  <li>
+                    <a href="https://djvps820.github.io/hkserver.html" title="香港服务器">香港服务器</a>
+                  </li>
+                </div>
+              </div>
+            </ul>
+          </li>
+          <li class="menu-item-has-children">
+            <a h href="https://djvps820.github.io/hongkongbandwidth.html" class="nav-link nav-toggle" title="香港大带宽服务器">香港大带宽服务器</a>
+            <ul class="submenu" style="min-width: 568px; margin-left: 320px; left: -568px">
+              <div class="row justify-content-center mb-30-none">
+                <div class="col-lg-6 col-md-6">
+                  <li>
+                    <a href="https://djvps820.github.io/hongkongbandwidth.html" class="nav-link nav-toggle" title="香港大带宽服务器">香港大带宽服务器</a>
+                    <a href="https://djvps820.github.io/duaisp.html" class="nav-link nav-toggle" title="双ISP服务器">双ISP服务器</a>
+                  </li>
+                </div>
+              </div>
+            </ul>
+          </li>
+        </ul>
+        <div class="header-bar d-lg-none">
+          <span></span>
+          <span></span>
+          <span></span>
+        </div>
+        <div class="header-right">
+          <a href="https://djvps820.github.io/heip.html" class="header-button d-none d-md-inline-block">文章导航</a>
+        </div>
+      </div>
+    </div>
+  </header>
+  <!--============= Banner Section Starts Here =============-->
+  <div class="hero-section style-three" style="background-color: #0052d9";> </div>
+  <!--============= Banner Section Ends Here =============-->
+
+<div class="page">
+
+    <!-- 左侧目录（不参与1200） -->
+    <aside class="toc">
+        <div class="toc-title">目录</div>
+        <a href="#s1">一、先把概念讲清楚：很多人分不清“污染”和“劫持”</a>
+        <a href="#s2">二、第一步判断：看“解析结果是否一致”</a>
+        <a href="#s3">三、第二步判断：看“是否存在DNS服务器被替换”</a>
+        <a href="#s4">四、第三步判断：看TTL与响应行为异常</a>
+        <a href="#s5">五、第四步判断：从访问行为反推问题</a>
+        <a href="#s6">六、第五步判断：跨网络验证法</a>
+        <a href="#s7">七、第六步判断：抓包最终确认</a>
+        <a href="#s8">八、快速结论判断逻辑</a>  
+        <a href="#s9">九、真实情况：DNS问题通常不是单点问题</a>        
+    </aside>
+
+    <!-- 右侧内容区域（唯一1200） -->
+    <main class="main">
+
+        <!-- 面包屑（在标题上面） -->
+        <div class="breadcrumb">
+            <a href="https://djvps820.github.io/">首页</a> >> 如何判断DNS污染还是DNS劫持
+        </div>
+
+        <!-- 标题 -->
+        <h1 class="title">如何判断DNS污染还是DNS劫持</h1>
+
+        <div class="meta">作者：djvps820 ｜ 2026-06-29</div>
+
+        <!-- 内容 -->
+<article class="content">
+
+<h2 id="s1">一、先把概念讲清楚：很多人分不清“污染”和“劫持”</h2>
+
+<p>在实际网络故障排查中，DNS相关问题是最容易被误判的一类故障，尤其是在访问国外网站、企业跨境专线、或者做服务器运维时，经常会听到“是不是DNS被劫持了”“是不是DNS污染了”这样的判断，但真正能说清两者区别的人并不多。很多时候用户只是“网站打不开”或者“解析结果不对”，就直接归因到DNS问题，但实际上网络链路、运营商策略、甚至本地缓存都可能造成类似现象。</p>
+
+<p>从技术层面来说，DNS污染（DNS Poisoning / Spoofing）更多是指在DNS解析过程中返回了“错误但看似正常”的解析结果，这个结果可能来自中间链路的伪造响应，例如被注入了虚假IP地址，导致用户访问被导向错误服务器。而DNS劫持（DNS Hijacking）则更偏向“控制权被改变”，也就是说你的DNS请求被强制转发到某个指定解析服务器，甚至本地路由器、运营商网关、企业网关直接改写了DNS行为。</p>
+
+<p>简单理解可以这样区分：污染更像“路上有人给你递了一张假地图”，而劫持更像“你本来要去问路的窗口被换成了另一个人”。</p>
+
+<h2 id="s2">二、第一步判断：看“解析结果是否一致”</h2>
+
+<p>判断DNS问题的第一步不是抓包，也不是换网络，而是做“多节点解析对比”。可以使用 nslookup 或 dig 分别对比不同DNS源（运营商DNS、8.8.8.8、1.1.1.1）。</p>
+
+<p>如果解析结果明显不一致，就说明存在异常可能。但要注意CDN本身的分流机制，否则容易误判。</p>
+
+<p>判断关键点是：返回IP是否逻辑合理，是否指向陌生机房或无关业务。</p>
+
+<h2 id="s3">三、第二步判断：看“是否存在DNS服务器被替换”</h2>
+
+<p>在Windows中可以通过：</p>
+
+<code>ipconfig /all</code>
+
+<p>查看DNS是否被修改。如果出现陌生DNS IP（尤其是局域网网关或未知地址），需要重点怀疑劫持。</p>
+
+<p>在路由器层面，更常见的是“DNS强制转发”，用户虽然设置了8.8.8.8，但实际仍被转发到运营商DNS。</p>
+
+<p>抓包可以确认真实请求路径，如果目标DNS与配置不一致，则属于典型劫持行为。</p>
+
+<h2 id="s4">四、第三步判断：看TTL与响应行为异常</h2>
+
+<p>DNS记录中的TTL可以反映解析稳定性。</p>
+
+<code>
+正常：300 / 600 / 3600
+异常污染：1 / 0 或频繁变化
+</code>
+
+<p>污染通常表现为TTL极低或不稳定，因为伪造响应无法长期缓存。</p>
+
+<p>劫持则通常TTL正常，但返回结果固定错误。</p>
+
+<h2 id="s5">五、第四步判断：从访问行为反推问题</h2>
+
+<p>DNS问题最终一定会反映到访问层面，例如：</p>
+
+<p>网站间歇性打不开</p>
+<p>IP访问正常但域名访问失败</p>
+<p>HTTPS证书异常</p>
+<p>不同网络访问结果不一致</p>
+
+<p>如果IP访问正常，但域名访问异常，基本可以锁定DNS问题。</p>
+
+<img src="djvps820_files/img/dns20260629.png" alt="DNS污染还是DNS劫持" style="max-width:100%; height:auto; border-radius:8px;"loading="lazy">
+
+<h2 id="s6">六、第五步判断：跨网络验证法</h2>
+
+<p>这是最实用的工程方法：在不同网络环境下对比访问结果。</p>
+
+<p>如果仅某一个网络异常，而其他网络正常，则说明该网络DNS存在问题。</p>
+
+<p>例如公司网络无法访问，但手机热点正常，通常就是企业DNS策略或劫持。</p>
+
+<h2 id="s7">七、第六步判断：抓包最终确认</h2>
+
+<p>使用Wireshark可以直接看到DNS请求行为：</p>
+
+<code>
+请求是否发往正确DNS服务器
+响应是否来自同一源
+Transaction ID是否匹配
+是否存在伪造响应
+</code>
+
+<p>污染特征：返回内容被篡改</p>
+<p>劫持特征：请求路径被改变</p>
+
+<h2 id="s8">八、快速结论判断逻辑</h2>
+
+<p>偏劫持：</p>
+<p><a href="https://djvps820.github.io/duaisp.html">DNS服务器</a>被替换</p>
+<p>同网络所有设备异常</p>
+<p>解析结果长期固定错误</p>
+
+<p>偏污染：</p>
+<p>解析结果不一致</p>
+<p>IP随机变化</p>
+<p>TTL异常低</p>
+
+<h2 id="s9">九、真实情况：DNS问题通常不是单点问题</h2>
+
+<p>在真实网络中，DNS问题往往只是链路问题的一部分，包括路由绕行、运营商策略、跨境链路质量等都会影响解析表现。</p>
+
+<p>因此DNS不能孤立看待，而是要结合网络链路整体分析。</p>
+
+<p>本质上，DNS污染和DNS劫持只是两种不同干扰方式，核心在于通过解析对比、网络验证和抓包分析，把现象还原为真实机制。</p>
+
+</article>
+
+    </main>
+</div>
+<!-- FOOTER -->
+<!-- FOOTER -->
+<footer class="footer-section pt-70-145">
+    <a href="https://djvps820.github.io/#0" class="scrollToTop active"><i class="fas fa-angle-up"></i></a>
+    <div class="container">
+      <div class="footer-top cl-white padding-bottom padding-top">
+        <div class="row mb--50 justify-content-between">
+          <div class="col-sm-12 col-lg-4">
+            <div class="footer-widget widget-about">
+              <div class="logo-area">
+                <div class="logo">
+                  <a href="javascript:;"><img src="./djvps820_files/f75336c2714d6ea.png" title="香港vps推荐" alt="香港vps推荐"></a>
+                </div>
+              </div>
+              <p style="margin-top: 0px; margin-bottom: 1em">
+                推荐博客专注国外VPS、国外服务器、国外虚拟主机推荐，我们从用户使用体验出发，对国外VPS主机价格、速度、可靠性、客服等多个方面进行测评，为你推荐优秀的国外VPS/服务器/虚拟主机。
+              </p>
+              <ul class="social-icons">
+                <li>商务合作：</li>
+
+                <li>djvps820@outlook.com</li>
+              </ul>
+            </div>
+          </div>
+          <div class="col-sm-8 col-md-4 col-lg-3 offset-lg-1">
+            <div class="footer-widget widget-link">
+              <h5>用途分类</h5>
+              <ul>
+                <li><a >云服务器</a></li>
+                <li>
+                  <a >物理服务器</a>
+                </li>
+                <li>
+                  <a >大带宽服务器</a>
+                </li>
+                <li>
+                  <a >vps</a>
+              </ul>
+            </div>
+          </div>
+          <div class="col-sm-8 col-lg-4">
+            <div class="footer-widget widget-link">
+              <h5>地区分类</h5>
+              <ul>
+                <li>
+                  <a >香港服务器</a>
+                </li>
+                <li><a>美国服务器</a></li>
+                <li><a>新加坡服务器</a></li>
+                <li><a>日本服务器</a></li>
+                 <li><a>韩国服务器</a></li>
+              </ul>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+     <div class="footer-bottom cl-white">
+        <p>
+          Copyright © 2015
+          <a href="http://djvps820.github.io">VPS服务器</a> - Designed by
+          VPS云服务器推荐
+        </p>
+        <p>
+        友情连接：<a href="http://djvps820.github.io">免实名服务器</a> |
+        <a href="https://www.fuwuq.com/">全球VPS服务器</a> |
+      </p>
+      </div>
+  </footer>
+    <!--============= Footer Section Ends Here =============-->
+  <script src="./djvps820_files/jquery-3.3.1.min.js.下载"></script>
+  <script src="./djvps820_files/modernizr-3.6.0.min.js.下载"></script>
+  <script src="./djvps820_files/plugins.js.下载"></script>
+  <script src="./djvps820_files/bootstrap.min.js.下载"></script>
+  <script src="./djvps820_files/wow.min.js.下载"></script>
+  <script src="./djvps820_files/waypoints.js.下载"></script>
+  <script src="./djvps820_files/nice-select.js.下载"></script>
+  <script src="./djvps820_files/owl.min.js.下载"></script>
+  <script src="./djvps820_files/magnific-popup.min.js.下载"></script>
+  <script src="./djvps820_files/main.js.下载"></script>
+</body>
+</html>
