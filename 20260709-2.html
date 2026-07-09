@@ -1,0 +1,985 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+<title>Ubuntu修改root用户密码教程，新手也能快速掌握</title>
+<meta name="description" content="Ubuntu 服务器或者 Linux 桌面系统的过程中，修改 root 用户密码是一个非常常见的操作。无论是刚购买云服务器后的系统初始化，还是因为密码泄露、团队成员交接、服务器安全维护，都可能需要重新设置 root 用户密码。">
+<meta name="keywords" content="Ubuntu修改root用户">
+  <link rel="stylesheet" href="./djvps820_files/bootstrap.min.css">
+  <link rel="stylesheet" href="./djvps820_files/all.min.css">
+  <link rel="stylesheet" href="./djvps820_files/animate.css">
+  <link rel="stylesheet" href="./djvps820_files/nice-select.css">
+  <link rel="stylesheet" href="./djvps820_files/owl.min.css">
+  <link rel="stylesheet" href="./djvps820_files/magnific-popup.css">
+  <link rel="stylesheet" href="./djvps820_files/flaticon.css">
+  <link rel="stylesheet" href="./djvps820_files/main.css">
+  <link rel="stylesheet" href="./djvps820_files/heplnewsstyle.css">
+  <link rel="icon" type="image/x-icon" href="https://djvps820.github.io/favicon.png">
+<meta http-equiv="origin-trial" content="AlK2UR5SkAlj8jjdEc9p3F3xuFYlF6LYjAML3EOqw1g26eCwWPjdmecULvBH5MVPoqKYrOfPhYVL71xAXI1IBQoAAAB8eyJvcmlnaW4iOiJodHRwczovL2RvdWJsZWNsaWNrLm5ldDo0NDMiLCJmZWF0dXJlIjoiV2ViVmlld1hSZXF1ZXN0ZWRXaXRoRGVwcmVjYXRpb24iLCJleHBpcnkiOjE3NTgwNjcxOTksImlzU3ViZG9tYWluIjp0cnVlfQ=="><meta http-equiv="origin-trial" content="Amm8/NmvvQfhwCib6I7ZsmUxiSCfOxWxHayJwyU1r3gRIItzr7bNQid6O8ZYaE1GSQTa69WwhPC9flq/oYkRBwsAAACCeyJvcmlnaW4iOiJodHRwczovL2dvb2dsZXN5bmRpY2F0aW9uLmNvbTo0NDMiLCJmZWF0dXJlIjoiV2ViVmlld1hSZXF1ZXN0ZWRXaXRoRGVwcmVjYXRpb24iLCJleHBpcnkiOjE3NTgwNjcxOTksImlzU3ViZG9tYWluIjp0cnVlfQ=="><meta http-equiv="origin-trial" content="A9wSqI5i0iwGdf6L1CERNdmsTPgVu44ewj8QxTBYgsv1LCPUVF7YmWOvTappqB1139jAymxUW/RO8zmMqo4zlAAAAACNeyJvcmlnaW4iOiJodHRwczovL2RvdWJsZWNsaWNrLm5ldDo0NDMiLCJmZWF0dXJlIjoiRmxlZGdlQmlkZGluZ0FuZEF1Y3Rpb25TZXJ2ZXIiLCJleHBpcnkiOjE3MzY4MTI4MDAsImlzU3ViZG9tYWluIjp0cnVlLCJpc1RoaXJkUGFydHkiOnRydWV9"><meta http-equiv="origin-trial" content="A+d7vJfYtay4OUbdtRPZA3y7bKQLsxaMEPmxgfhBGqKXNrdkCQeJlUwqa6EBbSfjwFtJWTrWIioXeMW+y8bWAgQAAACTeyJvcmlnaW4iOiJodHRwczovL2dvb2dsZXN5bmRpY2F0aW9uLmNvbTo0NDMiLCJmZWF0dXJlIjoiRmxlZGdlQmlkZGluZ0FuZEF1Y3Rpb25TZXJ2ZXIiLCJleHBpcnkiOjE3MzY4MTI4MDAsImlzU3ViZG9tYWluIjp0cnVlLCJpc1RoaXJkUGFydHkiOnRydWV9"></head>
+
+</head>
+<body>
+
+ <!--============= ScrollToTop Section Starts Here =============-->
+
+  <div class="overlay"></div>
+  <!--============= ScrollToTop Section Ends Here =============-->
+  <header class="header-section">
+    <div class="container">
+      <div class="header-wrapper">
+        <div class="logo-area">
+          <div class="logo">
+            <a href="https://djvps820.github.io/" title="香港vps推荐" alt="香港vps推荐">
+              <img src="./djvps820_files/f75336c2714d6ea.png" title="香港vps推荐" alt="香港vps推荐">
+            </a>
+          </div>
+          <div id="div_1">
+              <div class="support"> 
+               <ul class="menu" style="margin-right: -50px;"> 
+                <li class="menu-item-has-children"> 
+                      <a href="https://djvps820.github.io/hongkongcloud.html" title="香港云服务器" style="padding: 7px 5px;font-size: 15px;"><img src="./djvps820_files/hk.svg" style="margin-right: 7px;width: 30px;" alt="香港机房" class="img-fluid">香港机房</a> 
+                      <ul class="submenu" style="min-width: 150px;"> 
+                      <li> <a style="font-size: 13px;">
+                        <img src="./djvps820_files/jp.svg" style="margin-right: 7px;width: 30px;" class="img-fluid">日本机房</a> 
+                      </li> 
+                    <li> 
+                     <a href="http://djvps820.github.io/uscloud.html" title="美国云服务器" style="font-size: 13px;"> 
+                     <img src="./djvps820_files/us.svg" style="margin-right: 7px;width: 30px;" class="img-fluid">美国机房</a> 
+                    </li>
+                     <li> <a style="font-size: 13px;">
+                     <img src="./djvps820_files/img/xinjapo.png" style="margin-right: 7px;width: 30px;" class="img-fluid">新加坡机房</a> 
+                    </li>
+                  </ul> 
+                  </li> 
+                  </ul> 
+            </div>
+          </div>
+        </div>
+        <ul class="menu">
+          <li><a href="https://djvps820.github.io" title="香港vps">首页</a></li>
+          <li class="menu-item-has-children">
+            <a href="https://djvps820.github.io/hkvps.html"  title="香港vps">香港vps</a>
+            <ul class="submenu">
+                <li>
+                <a href="https://djvps820.github.io/hongkongcloud.html" class="nav-link nav-toggle" title="5家香港云服务器">5家香港云服务器</a>
+              </li>
+            </ul>
+          </li>
+          <li class="menu-item-has-children">
+            <a href="https://djvps820.github.io/hkserver.html" class="nav-link nav-toggle" title="香港服务器">香港服务器</a>
+            <ul class="submenu" style="min-width: 568px; margin-left: 400px; left: -568px">
+              <div class="row justify-content-center mb-30-none">
+                <div class="col-lg-6 col-md-6">
+                  <li>
+                    <a href="https://djvps820.github.io/hkserver.html" title="香港服务器">香港服务器</a>
+                  </li>
+                </div>
+              </div>
+            </ul>
+          </li>
+          <li class="menu-item-has-children">
+            <a h href="https://djvps820.github.io/hongkongbandwidth.html" class="nav-link nav-toggle" title="香港大带宽服务器">香港大带宽服务器</a>
+            <ul class="submenu" style="min-width: 568px; margin-left: 320px; left: -568px">
+              <div class="row justify-content-center mb-30-none">
+                <div class="col-lg-6 col-md-6">
+                  <li>
+                    <a href="https://djvps820.github.io/hongkongbandwidth.html" class="nav-link nav-toggle" title="香港大带宽服务器">香港大带宽服务器</a>
+                    <a href="https://djvps820.github.io/duaisp.html" class="nav-link nav-toggle" title="双ISP服务器">双ISP服务器</a>
+                  </li>
+                </div>
+              </div>
+            </ul>
+          </li>
+        </ul>
+        <div class="header-bar d-lg-none">
+          <span></span>
+          <span></span>
+          <span></span>
+        </div>
+        <div class="header-right">
+          <a href="https://djvps820.github.io/heip.html" class="header-button d-none d-md-inline-block">文章导航</a>
+        </div>
+      </div>
+    </div>
+  </header>
+  <!--============= Banner Section Starts Here =============-->
+  <div class="hero-section style-three" style="background-color: #0052d9";> </div>
+  <!--============= Banner Section Ends Here =============-->
+
+<div class="page">
+
+    <!-- 左侧目录（不参与1200） -->
+    <aside class="toc">
+        <div class="toc-title">目录</div>
+        <a href="#s1">一、Ubuntu 为什么默认没有 root 密码？</a>
+        <a href="#s2">二、Ubuntu 修改 root 密码最简单方法</a>
+        <a href="#s3">三、如何确认 root 密码是否修改成功？</a>
+        <a href="#s4">四、解除 Ubuntu root 用户锁定状态</a>
+        <a href="#s5">五、忘记 Ubuntu root 密码怎么办？</a>
+        <a href="#s6">六、Ubuntu 开启 root SSH 远程登录</a>
+        <a href="#s7">七、开启 root 登录是否安全？</a>
+        <a href="#s8">八、修改 Ubuntu root 密码后的安全建议</a>  
+        <a href="#s9">九、Ubuntu 修改 root 密码常见问题</a>   
+        <a href="#s10">十、Ubuntu 修改 root 密码总结</a>            
+    </aside>
+
+    <!-- 右侧内容区域（唯一1200） -->
+    <main class="main">
+
+        <!-- 面包屑（在标题上面） -->
+        <div class="breadcrumb">
+            <a href="https://djvps820.github.io/">首页</a> >> Ubuntu修改root用户密码教程，新手也能快速掌握
+        </div>
+
+        <!-- 标题 -->
+        <h1 class="title">Ubuntu修改root用户密码教程，新手也能快速掌握</h1>
+<div class="meta">作者：djvps820 ｜ 2026-07-09</div>
+ <!-- 内容 -->
+<article class="content">
+
+<h2 id="s1">一、Ubuntu 为什么默认没有 root 密码？</h2>
+
+<p>
+在使用 <a href="https://djvps820.github.io/hkserver.html">Ubuntu服务器</a>或者 Linux 桌面系统的过程中，修改 root 用户密码是一个非常常见的操作。无论是刚购买云服务器后的系统初始化，还是因为密码泄露、团队成员交接、服务器安全维护，都可能需要重新设置 root 用户密码。
+</p>
+
+<p>
+对于刚接触 Linux 的新手来说，root 用户、sudo 权限、SSH 登录等概念可能比较陌生，但实际上 Ubuntu 修改 root 密码并不复杂，只需要掌握几个基础命令即可完成操作。
+</p>
+
+<p>
+Ubuntu 作为目前使用非常广泛的 Linux 发行版之一，在服务器领域拥有大量用户，包括云服务器、网站服务器、数据库服务器以及开发环境等。
+</p>
+
+<p>
+与传统 Linux 系统不同，Ubuntu 默认并不会直接启用 root 用户远程登录，而是推荐普通用户通过 sudo 命令临时获取管理员权限。这种设计主要是为了提升系统安全性，避免用户长期使用最高权限账号操作系统，降低误操作导致服务器故障的风险。
+</p>
+
+<p>
+本文将详细介绍 Ubuntu 修改 root 用户密码的方法，包括已经拥有 sudo 权限时如何修改、忘记密码时如何重置、如何开启 root 登录、如何通过 SSH 使用 root 登录，以及修改 root 密码后需要注意的安全问题。
+</p>
+
+
+<p>
+很多刚开始使用 Ubuntu 的用户会发现一个问题：安装完成 Ubuntu 后，为什么 root 用户无法直接登录？甚至执行 <code>su root</code> 命令时，会提示认证失败？
+</p>
+
+<p>
+这是因为 Ubuntu 默认采用了一种更加安全的管理员权限管理方式。
+</p>
+
+<p>
+在 Ubuntu 系统中，root 用户实际上是存在的，但是默认处于锁定状态，没有设置可直接登录的密码。系统管理员通常使用安装系统时创建的普通用户，通过 sudo 命令执行管理员操作。
+</p>
+
+<p>
+例如：
+</p>
+
+<code>sudo apt update</code>
+
+<p>
+这个命令表示使用当前用户临时获得管理员权限执行软件源更新操作。
+</p>
+
+<p>
+而：
+</p>
+
+<code>su root</code>
+
+<p>
+则表示切换到 root 用户，需要输入 root 用户密码。如果 Ubuntu 没有设置 root 密码，就无法完成登录。
+</p>
+
+<p>
+这种机制的优势在于，即使普通用户密码泄露，攻击者也无法直接获得最高权限。同时，sudo 还可以记录管理员操作日志，方便服务器安全审计。
+</p>
+
+<p>
+不过，在一些服务器环境中，例如 VPS 主机管理、多用户运维、自动化脚本部署等场景，管理员可能仍然需要启用 root 用户，因此修改 root 密码成为必要操作。
+</p>
+
+
+<h2 id="s2">二、Ubuntu 修改 root 密码最简单方法</h2>
+
+<p>
+如果当前用户拥有 sudo 权限，那么修改 root 密码非常简单，只需要执行 passwd 命令即可。
+</p>
+
+<p>
+首先登录 Ubuntu 系统，然后打开终端。
+</p>
+
+<p>
+执行：
+</p>
+
+<code>sudo passwd root</code>
+
+<p>
+系统会提示输入新的 root 密码：
+</p>
+
+<code>
+New password:
+Retype new password:
+</code>
+
+<p>
+输入两次相同的新密码即可。
+</p>
+
+<p>
+如果修改成功，会看到类似提示：
+</p>
+
+<code>passwd: password updated successfully</code>
+
+<p>
+这表示 Ubuntu root 用户密码已经修改完成。
+</p>
+
+<p>
+例如：
+</p>
+
+<code>
+root@ubuntu:~# sudo passwd root
+
+New password:
+Retype new password:
+passwd: password updated successfully
+</code>
+
+<p>
+此时 root 用户已经拥有新的登录密码。
+</p>
+
+
+<h2 id="s3">三、如何确认 root 密码是否修改成功？</h2>
+
+<p>
+修改完成后，可以通过切换用户测试。
+</p>
+
+<p>
+输入：
+</p>
+
+<code>su root</code>
+
+<p>
+然后输入刚刚设置的 root 密码。
+</p>
+
+<p>
+如果成功，会进入 root 环境：
+</p>
+
+<code>root@ubuntu:/home/user#</code>
+
+<p>
+此时说明 root 密码设置成功。
+</p>
+
+<p>
+也可以执行：
+</p>
+
+<code>whoami</code>
+
+<p>
+如果返回：
+</p>
+
+<code>root</code>
+
+<p>
+说明当前已经切换到 root 用户。
+</p>
+
+<p>
+需要注意的是，如果执行 <code>su root</code> 后仍然失败，可能不是密码问题，而是 root 用户仍处于锁定状态，可以使用下面的方法解除。
+</p>
+<h2 id="s4">四、解除 Ubuntu root 用户锁定状态</h2>
+
+<p>
+Ubuntu 默认会锁定 root 账户。如果 root 用户密码设置后仍无法登录，可以检查 root 用户当前状态。
+</p>
+
+<p>
+执行：
+</p>
+
+<code>sudo passwd -S root</code>
+
+<p>
+如果显示类似：
+</p>
+
+<code>
+root L 2026-07-09 0 99999 7 -1
+</code>
+
+<p>
+其中：
+</p>
+
+<ul>
+<li><code>L</code> 代表 Locked，也就是 root 用户被锁定。</li>
+</ul>
+
+<p>
+解除 root 锁定可以执行：
+</p>
+
+<code>sudo passwd -u root</code>
+
+<p>
+执行成功后：
+</p>
+
+<code>passwd: password expiry information changed.</code>
+
+<p>
+表示 root 用户已经解除锁定。
+</p>
+
+<p>
+之后再次设置 root 密码：
+</p>
+
+<code>sudo passwd root</code>
+
+<p>
+即可正常使用 root 用户。
+</p>
+
+
+<h2 id="s5">五、忘记 Ubuntu root 密码怎么办？</h2>
+
+<p>
+如果忘记 Ubuntu root 密码，也不用重新安装系统。Ubuntu 可以通过恢复模式重新设置 root 密码。
+</p>
+
+<p>
+这种情况主要发生在：
+</p>
+
+<ul>
+<li>长时间没有登录服务器；</li>
+<li>更换管理员后不知道原密码；</li>
+<li>VPS 商家没有提供 root 密码；</li>
+<li>修改密码后忘记保存。</li>
+</ul>
+
+
+<strong>方法一：通过 sudo 用户修改</strong>
+
+<p>
+如果还能登录普通管理员账号，那么无需知道旧密码。
+</p>
+
+<p>
+直接执行：
+</p>
+
+<code>sudo passwd root</code>
+
+<p>
+输入新密码即可。
+</p>
+
+<p>
+这是 Ubuntu 修改 root 密码最简单的方法。
+</p>
+
+
+<strong>方法二：进入 Ubuntu Recovery Mode</strong>
+
+<p>
+如果没有 sudo 权限，需要通过恢复模式修改 root 密码。
+</p>
+
+<p>
+操作步骤如下：
+</p>
+
+<ul>
+<li>重启 Ubuntu 系统。</li>
+</ul>
+
+<code>reboot</code>
+
+<ul>
+<li>启动过程中按住：</li>
+</ul>
+
+<code>Shift</code>
+
+<p>
+或者：
+</p>
+
+<code>Esc</code>
+
+<p>
+进入 GRUB 菜单。
+</p>
+
+<p>
+选择：
+</p>
+
+<code>Advanced options for Ubuntu</code>
+
+<p>
+进入：
+</p>
+
+<code>Recovery mode</code>
+
+<p>
+然后选择：
+</p>
+
+<code>root - Drop to root shell prompt</code>
+
+<p>
+进入 root shell 后，需要重新挂载系统为可写状态：
+</p>
+
+<code>mount -o rw,remount /</code>
+
+<p>
+然后修改密码：
+</p>
+
+<code>passwd root</code>
+
+<p>
+输入新的 root 密码。
+</p>
+
+<p>
+完成后执行：
+</p>
+
+<code>reboot</code>
+
+<p>
+重启系统即可。
+</p>
+
+
+<h2 id="s6">六、Ubuntu 开启 root SSH 远程登录</h2>
+
+<p>
+很多 VPS 用户修改 root 密码后，会希望直接使用 SSH 登录服务器：
+</p>
+
+<code>ssh root@服务器IP</code>
+
+<p>
+但是 Ubuntu 默认禁止 root SSH 登录。
+</p>
+
+<p>
+如果需要开启 root SSH 登录，需要修改 SSH 配置文件。
+</p>
+
+<p>
+打开 SSH 配置：
+</p>
+
+<code>nano /etc/ssh/sshd_config</code>
+
+<p>
+找到：
+</p>
+
+<code>#PermitRootLogin prohibit-password</code>
+
+<p>
+修改为：
+</p>
+
+<code>PermitRootLogin yes</code>
+
+<p>
+如果配置文件中没有这一行，可以手动添加。
+</p>
+
+<p>
+同时确认：
+</p>
+
+<code>PasswordAuthentication yes</code>
+
+<p>
+保存退出后，重启 SSH 服务。
+</p>
+
+<p>
+Ubuntu 22.04、24.04：
+</p>
+
+<code>systemctl restart ssh</code>
+
+<p>
+部分 Linux 系统：
+</p>
+
+<code>systemctl restart sshd</code>
+
+<p>
+之后即可尝试：
+</p>
+
+<code>ssh root@服务器IP</code>
+
+<p>
+输入 root 密码即可登录。
+</p>
+
+
+<h2 id="s7">七、开启 root 登录是否安全？</h2>
+
+<p>
+虽然 Ubuntu 可以开启 root SSH 登录，但是从服务器安全角度来看，并不推荐长期开放。
+</p>
+
+<p>
+原因主要包括以下几个方面。
+</p>
+
+<p>
+<strong>第一，root 用户拥有 Linux 系统最高权限。</strong>
+</p>
+
+<p>
+如果 SSH 开放 root 登录，攻击者只需要不断尝试 root 密码，一旦密码泄露，服务器所有权限都会被控制。
+</p>
+
+<p>
+<strong>第二，公网服务器经常受到自动化扫描攻击。</strong>
+</p>
+
+<p>
+很多攻击程序会扫描服务器 22 端口，并尝试以下常见用户名：
+</p>
+
+<code>
+root
+admin
+test
+</code>
+
+<p>
+如果允许 root 用户直接登录，会增加暴力破解风险。
+</p>
+
+<p>
+更安全的方式是创建普通用户，然后通过 sudo 获取管理员权限。
+</p>
+
+<p>
+创建普通用户：
+</p>
+
+<code>adduser username</code>
+
+<p>
+加入 sudo 权限：
+</p>
+
+<code>usermod -aG sudo username</code>
+
+<p>
+以后使用：
+</p>
+
+<code>ssh username@IP</code>
+
+<p>
+登录服务器，再通过：
+</p>
+
+<code>sudo -i</code>
+
+<p>
+获取 root 权限。
+</p>
+
+
+<h2 id="s8">八、修改 Ubuntu root 密码后的安全建议</h2>
+
+<p>
+修改 root 密码只是服务器安全管理的第一步。如果服务器直接暴露在公网环境，例如云服务器、VPS、独立服务器，还需要进行进一步安全优化。
+</p>
+
+
+<strong>1. 使用强密码</strong>
+
+<p>
+不要使用以下简单密码：
+</p>
+
+<code>
+123456
+password
+admin123
+root123
+</code>
+
+<p>
+建议密码满足：
+</p>
+
+<ul>
+<li>长度超过 12 位；</li>
+<li>包含大小写字母；</li>
+<li>包含数字；</li>
+<li>包含特殊字符。</li>
+</ul>
+
+<p>
+例如：
+</p>
+
+<code>Ubuntu@2026_Server#</code>
+
+<p>
+复杂密码可以有效提高服务器安全性。
+</p>
+
+
+<strong>2. 修改 SSH 默认端口</strong>
+
+<p>
+Ubuntu 默认 SSH 端口：
+</p>
+
+<code>22</code>
+
+<p>
+大量扫描程序都会扫描该端口。
+</p>
+
+<p>
+编辑 SSH 配置：
+</p>
+
+<code>nano /etc/ssh/sshd_config</code>
+
+<p>
+修改：
+</p>
+
+<code>Port 2222</code>
+
+<p>
+然后重启 SSH：
+</p>
+
+<code>systemctl restart ssh</code>
+
+
+<strong>3. 开启防火墙</strong>
+
+<p>
+Ubuntu 自带 UFW 防火墙。
+</p>
+
+<p>
+查看状态：
+</p>
+
+<code>ufw status</code>
+
+<p>
+开启防火墙：
+</p>
+
+<code>ufw enable</code>
+
+<p>
+允许 SSH：
+</p>
+
+<code>ufw allow 22</code>
+
+<p>
+如果修改 SSH 端口：
+</p>
+
+<code>ufw allow 2222</code>
+
+
+<strong>4. 使用 SSH 密钥登录</strong>
+
+<p>
+相比密码登录，SSH Key 登录方式安全性更高。
+</p>
+
+<p>
+生成密钥：
+</p>
+
+<code>ssh-keygen</code>
+
+<p>
+上传公钥：
+</p>
+
+<code>ssh-copy-id username@服务器IP</code>
+
+<p>
+以后可以使用密钥登录服务器，同时关闭密码认证，提高整体安全性。
+</p>
+<h2 id="s9">九、Ubuntu 修改 root 密码常见问题</h2>
+
+<strong>1. 执行 passwd root 提示 Authentication token manipulation error</strong>
+
+<p>
+在修改 Ubuntu root 密码时，有些用户可能会遇到以下错误：
+</p>
+
+<code>
+passwd: Authentication token manipulation error
+passwd: password unchanged
+</code>
+
+<p>
+这个问题通常是由于系统文件处于只读状态导致，尤其是在恢复模式或者磁盘异常挂载情况下比较常见。
+</p>
+
+<p>
+解决方法是重新将根目录挂载为可写状态：
+</p>
+
+<code>mount -o remount,rw /</code>
+
+<p>
+然后重新执行：
+</p>
+
+<code>passwd root</code>
+
+<p>
+输入新的 root 密码即可。
+</p>
+
+
+<strong>2. root 密码正确但是 SSH 登录失败</strong>
+
+<p>
+有些用户修改 root 密码后，通过 SSH 登录仍然失败，例如：
+</p>
+
+<code>
+ssh root@服务器IP
+</code>
+
+<p>
+这种情况通常不是密码错误，而是 SSH 服务配置限制导致。
+</p>
+
+<p>
+常见原因包括：
+</p>
+
+<ul>
+<li>SSH 配置禁止 root 登录；</li>
+<li>PasswordAuthentication 被关闭；</li>
+<li>服务器防火墙限制 SSH 端口；</li>
+<li>云服务器安全组未开放 SSH 端口。</li>
+</ul>
+
+<p>
+可以检查 SSH 配置文件：
+</p>
+
+<code>cat /etc/ssh/sshd_config</code>
+
+<p>
+确认以下配置：
+</p>
+
+<code>
+PermitRootLogin yes
+PasswordAuthentication yes
+</code>
+
+<p>
+修改后重新启动 SSH 服务：
+</p>
+
+<code>systemctl restart ssh</code>
+
+
+<strong>3. sudo 提示用户不在 sudoers 文件</strong>
+
+<p>
+如果执行 sudo 命令时出现：
+</p>
+
+<code>
+user is not in the sudoers file
+</code>
+
+<p>
+说明当前账号没有管理员权限。
+</p>
+
+<p>
+需要使用已有管理员账号添加 sudo 权限。
+</p>
+
+<p>
+执行：
+</p>
+
+<code>usermod -aG sudo 用户名</code>
+
+<p>
+然后退出当前会话，重新登录系统即可生效。
+</p>
+
+
+<h2 id="s10">十、Ubuntu 修改 root 密码总结</h2>
+
+<p>
+Ubuntu 修改 root 用户密码并不是一件复杂的事情，对于拥有 sudo 权限的用户来说，只需要执行：
+</p>
+
+<code>sudo passwd root</code>
+
+<p>
+即可完成 root 密码修改。
+</p>
+
+<p>
+如果遇到 root 无法登录、忘记密码、SSH 登录失败等问题，也可以通过解除 root 锁定、恢复模式修改密码、调整 SSH 配置等方式解决。
+</p>
+
+<p>
+不过需要注意，root 用户拥有 Linux 系统最高权限，开启 root 登录虽然方便，但也会增加服务器安全风险。
+</p>
+
+<p>
+对于长期运行的网站、数据库、业务系统服务器，更推荐使用：
+</p>
+
+<code>
+普通用户 + sudo 权限管理
+</code>
+
+<p>
+并配合以下安全措施：
+</p>
+
+<ul>
+<li>SSH 密钥登录；</li>
+<li>强密码策略；</li>
+<li>防火墙规则；</li>
+<li>限制 SSH 登录权限；</li>
+<li>定期检查系统安全日志。</li>
+</ul>
+
+<p>
+掌握 Ubuntu root 密码修改方法，是 Linux 服务器管理中的基础技能。无论是部署网站、搭建 VPS 环境，还是进行服务器维护，这些命令都会成为日常运维工作中经常使用的工具。
+</p>
+
+<p>
+只要理解 Ubuntu 的权限管理机制，即使是 Linux 新手，也可以快速完成服务器管理员相关操作，并更加安全地维护自己的 Ubuntu 服务器环境。
+</p>
+
+</article>
+    </main>
+</div>
+<!-- FOOTER -->
+<!-- FOOTER -->
+<footer class="footer-section pt-70-145">
+    <a href="https://djvps820.github.io/#0" class="scrollToTop active"><i class="fas fa-angle-up"></i></a>
+    <div class="container">
+      <div class="footer-top cl-white padding-bottom padding-top">
+        <div class="row mb--50 justify-content-between">
+          <div class="col-sm-12 col-lg-4">
+            <div class="footer-widget widget-about">
+              <div class="logo-area">
+                <div class="logo">
+                  <a href="javascript:;"><img src="./djvps820_files/f75336c2714d6ea.png" title="香港vps推荐" alt="香港vps推荐"></a>
+                </div>
+              </div>
+              <p style="margin-top: 0px; margin-bottom: 1em">
+                推荐博客专注国外VPS、国外服务器、国外虚拟主机推荐，我们从用户使用体验出发，对国外VPS主机价格、速度、可靠性、客服等多个方面进行测评，为你推荐优秀的国外VPS/服务器/虚拟主机。
+              </p>
+              <ul class="social-icons">
+                <li>商务合作：</li>
+
+                <li>djvps820@outlook.com</li>
+              </ul>
+            </div>
+          </div>
+          <div class="col-sm-8 col-md-4 col-lg-3 offset-lg-1">
+            <div class="footer-widget widget-link">
+              <h5>用途分类</h5>
+              <ul>
+                <li><a >云服务器</a></li>
+                <li>
+                  <a >物理服务器</a>
+                </li>
+                <li>
+                  <a >大带宽服务器</a>
+                </li>
+                <li>
+                  <a >vps</a>
+              </ul>
+            </div>
+          </div>
+          <div class="col-sm-8 col-lg-4">
+            <div class="footer-widget widget-link">
+              <h5>地区分类</h5>
+              <ul>
+                <li>
+                  <a >香港服务器</a>
+                </li>
+                <li><a>美国服务器</a></li>
+                <li><a>新加坡服务器</a></li>
+                <li><a>日本服务器</a></li>
+                 <li><a>韩国服务器</a></li>
+              </ul>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+     <div class="footer-bottom cl-white">
+        <p>
+          Copyright © 2015
+          <a href="http://djvps820.github.io">VPS服务器</a> - Designed by
+          VPS云服务器推荐
+        </p>
+        <p>
+        友情连接：<a href="http://djvps820.github.io">免实名服务器</a> |
+        <a href="https://www.fuwuq.com/">全球VPS服务器</a> |
+      </p>
+      </div>
+  </footer>
+    <!--============= Footer Section Ends Here =============-->
+  <script src="./djvps820_files/jquery-3.3.1.min.js.下载"></script>
+  <script src="./djvps820_files/modernizr-3.6.0.min.js.下载"></script>
+  <script src="./djvps820_files/plugins.js.下载"></script>
+  <script src="./djvps820_files/bootstrap.min.js.下载"></script>
+  <script src="./djvps820_files/wow.min.js.下载"></script>
+  <script src="./djvps820_files/waypoints.js.下载"></script>
+  <script src="./djvps820_files/nice-select.js.下载"></script>
+  <script src="./djvps820_files/owl.min.js.下载"></script>
+  <script src="./djvps820_files/magnific-popup.min.js.下载"></script>
+  <script src="./djvps820_files/main.js.下载"></script>
+</body>
+</html>
